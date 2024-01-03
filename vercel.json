@@ -1,0 +1,9 @@
+{
+    "version": 2,
+    "builds": [{ "src": "dist/*", "use": "@vercel/node" }],
+    "routes": [{ "src": "/(.*)", "dest": "dist/$1" }],
+    "env": {
+      "NODE_ENV": "production"
+    }
+  }
+  
