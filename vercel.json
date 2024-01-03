@@ -9,7 +9,10 @@
   "routes": [
     {
       "src": "/(.*)",
-      "destination": "/"
+      "dest": "/"
     }
-  ]
+  ],
+  "env": {
+    "POSTGRESQL_URL": "postgres://default:Yq5hfFJN0mEK@ep-shiny-cell-91515215.us-east-1.postgres.vercel-storage.com:5432/verceldb?sslmode=require"
+  }
 }
