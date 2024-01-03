@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
-import { RoleEnum } from 'utility/role.enum';
+import { RoleEnum } from 'src/utility/role.enum';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: "phone can't be empty " })
