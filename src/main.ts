@@ -5,12 +5,15 @@ import { HttpExceptionFilter } from './http-exception.filter';
 import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   // the next two lines did the trick
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-  app.enableCors();
+  app.enableCors({
+    methods: ['POST', 'PUT', 'DELETE', 'GET'],
+    credentials: true,
+  });
   app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(3001);
 }
