@@ -45,6 +45,6 @@ export class OrderItemController {
 
   @Get('getByOrder/:id')
   async getByOrder(@Param('id') id: string) {
-    return await this.orderItemService.findAllByOrder(+id);
+    return await this.orderItemService.gerItemByOrder(+id);
   }
 }

@@ -74,8 +74,8 @@ export class OrderItemService {
 
   async gerItemByOrder(id: number) {
     const items = await this.orderItemRepository
-      .createQueryBuilder('orderItem')
-      .select('orderItem', 'order_item')
+      .createQueryBuilder()
+      .select('orderItem', 'orderItem')
       .addSelect('order.id', 'order_id')
       .from('orderItem', 'orderItem')
       .innerJoin('orderItem.order', 'order')
