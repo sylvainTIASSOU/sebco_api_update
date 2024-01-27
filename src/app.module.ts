@@ -36,13 +36,52 @@ import { Comment } from 'src/comment/entities/comment.entity';
 import { Notification } from 'src/notification/entities/notification.entity';
 import { Devise } from 'src/devise/entities/devise.entity';
 import { config } from 'dotenv';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 config();
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     EventEmitterModule.forRoot(),
-    TypeOrmModule.forRoot({
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        url: configService.get<string>('POSTGRESQL_URL'),
+        host: configService.get<string>('DB_HOST'),
+        port: configService.get<number>('BD_PORT'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_DATABASE'),
+        entities: [
+          User,
+          Admin,
+          Customer,
+          Driver,
+          Order,
+          OrderItem,
+          Truck,
+          Category,
+          Product,
+          Panier,
+          Delivery,
+          Chat,
+          Comment,
+          Notification,
+          Devise,
+        ],
+        synchronize: true,
+        ssl: true,
+        extra: {
+          ssl: {
+            rejectUnauthorized: false, // For self-signed certificates
+          },
+        },
+      }),
+    }),
+    /*  TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.POSTGRESQL_URL,
       host: process.env.DB_HOST,
@@ -74,7 +113,7 @@ config();
           rejectUnauthorized: false, // For self-signed certificates
         },
       },
-    }),
+    }),*/
     UsersModule,
     AdminModule,
     CustomerModule,
