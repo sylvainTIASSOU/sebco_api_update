@@ -12,7 +12,7 @@ async function bootstrap() {
   app.use(bodyParser.json({ limit: '50mb' }));
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
   app.enableCors({
-    methods: ['POST', 'PUT', 'DELETE', 'GET'],
+    methods: ['POST', 'PUT', 'DELETE', 'GET', 'PATCH', 'OPTIONS'],
     credentials: true,
   });
   const configService = app.get(ConfigService);
